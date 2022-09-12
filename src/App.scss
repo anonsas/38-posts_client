@@ -1,0 +1,49 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4rem;
+}
+
+.post {
+  width: 40rem;
+  height: 30rem;
+  border-radius: 1rem;
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid lightgray;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    cursor: pointer;
+  }
+
+  &__title {
+    flex: 20%;
+    border-bottom: 1px solid lightgray;
+    background-color: dodgerblue;
+    display: grid;
+    place-content: center;
+    color: white;
+  }
+
+  &__text {
+    flex: 60%;
+    display: grid;
+    place-content: center;
+  }
+
+  &__user {
+    flex: 20%;
+    border-top: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    padding-left: 1.5rem;
+    background-color: dodgerblue;
+    color: white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+}
