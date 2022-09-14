@@ -1,13 +1,16 @@
 import './App.scss';
-import { Routes, Route, Link } from 'react-router-dom';
-import { Home, NotFound } from './pages/index';
+import { Routes, Route } from 'react-router-dom';
+import { Home, PostForm, Post, NotFound } from './pages/index';
+import { Navbar } from './components/index';
 
 function App() {
   return (
     <div>
-      <Link to="/form">Create A Post</Link>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/post/:id" element={<Post />} />
+        <Route path="/postform" element={<PostForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

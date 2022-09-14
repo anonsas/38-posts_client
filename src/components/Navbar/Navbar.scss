@@ -1,0 +1,13 @@
+.navbar {
+  padding: 2rem 4rem;
+  background-color: #0077cc;
+  display: flex;
+  column-gap: 2rem;
+
+  & > a,
+  & > a:link,
+  & > a:visited {
+    text-decoration: none;
+    color: var(--white-color);
+  }
+}
