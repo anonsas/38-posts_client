@@ -1,8 +1,32 @@
 .post-page {
   padding: 4rem;
+  display: flex;
+  column-gap: 4rem;
+}
+
+.comment-container {
+  flex-basis: 50%;
+}
+
+.comment-form {
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  column-gap: 4rem;
+  flex-direction: column;
+  row-gap: 1rem;
+  border-bottom: 2px solid var(--secondary-color);
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  .comment {
+    padding: 1rem;
+    border: 1px solid var(--lightGray-color);
+    border-radius: 1rem;
+    background-color: var(--lightGray-color);
+  }
 }

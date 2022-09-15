@@ -25,8 +25,13 @@ function PostForm() {
 
   const submitForm = (data) => {
     console.log(data);
-    axios.post('http://localhost:4000/posts', data).then((response) => navigate('/'));
-    reset();
+    axios
+      .post('http://localhost:4000/posts', data)
+      .then((response) => {
+        navigate('/');
+        reset();
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (

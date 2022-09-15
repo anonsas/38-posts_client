@@ -15,12 +15,7 @@
     &__input {
       display: flex;
       flex-direction: column;
-      & > input {
-        padding: 0.6rem;
 
-        border: 1px solid black;
-        border-radius: 4px;
-      }
       & > p {
         color: orangered;
       }
