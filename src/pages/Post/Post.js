@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function Post() {
   const { id } = useParams();
-  const [post, setPost] = useState('');
+  const [post, setPost] = useState({});
 
   useEffect(() => {
     axios.get(`http://localhost:4000/posts/${id}`).then((response) => {
@@ -14,9 +14,18 @@ function Post() {
     });
   }, [id]);
 
-  console.log(id);
-  console.log(post);
-  return <div>Post</div>;
+  return (
+    <div className="post-page">
+      <div className="post">
+        <p className="post__title">{post?.title}</p>
+        <p className="post__text">{post?.postText}</p>
+        <p className="post__user">{post?.username}</p>
+      </div>
+      <div className="comments">
+        <p>Comment</p>
+      </div>
+    </div>
+  );
 }
 
 export default Post;

@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const schema = yup.object().shape({
   title: yup.string().required('Please enter title!'),
@@ -13,6 +14,8 @@ const schema = yup.object().shape({
 });
 
 function PostForm() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -22,7 +25,7 @@ function PostForm() {
 
   const submitForm = (data) => {
     console.log(data);
-    axios.post('http://localhost:4000/posts', data);
+    axios.post('http://localhost:4000/posts', data).then((response) => navigate('/'));
     reset();
   };
 
