@@ -1,6 +1,6 @@
 import './App.scss';
 import { Routes, Route } from 'react-router-dom';
-import { Home, PostForm, Post, NotFound } from './pages/index';
+import { Home, Login, Register, PostForm, Post, NotFound } from './pages/index';
 import { Navbar } from './components/index';
 
 function App() {
@@ -9,6 +9,8 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/post/:id" element={<Post />} />
         <Route path="/postform" element={<PostForm />} />
         <Route path="*" element={<NotFound />} />

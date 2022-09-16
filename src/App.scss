@@ -52,3 +52,10 @@ input {
   border: 1px solid black;
   border-radius: 4px;
 }
+
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: var(--white-color);
+}
