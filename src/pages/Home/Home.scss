@@ -37,15 +37,27 @@
     place-content: center;
   }
 
-  &__user {
+  &__user-container {
     flex: 20%;
     border-top: 1px solid lightgray;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding-left: 1.5rem;
+    padding: 0 1.5rem;
     background-color: royalblue;
     color: white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
+  }
+
+  &__like-container {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  &__like-icon {
+    height: 3rem;
+    width: 3rem;
   }
 }
