@@ -32,7 +32,7 @@ function Post() {
     axios
       .post(`http://localhost:4000/comments`, commentToAdd, {
         headers: {
-          accessToken: sessionStorage.getItem('accessToken'),
+          accessToken: localStorage.getItem('accessToken'),
         },
       })
       .then((response) => {
