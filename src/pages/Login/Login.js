@@ -17,14 +17,19 @@ function Login() {
     if (!username || !password) return alert('Please fill the form!');
 
     const loginUser = { username, password };
+
     axios
       .post('http://localhost:4000/auth/login', loginUser)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          localStorage.setItem('accessToken', response.data);
-          setAuthState(true);
+          localStorage.setItem('accessToken', response.data.accessToken);
+          setAuthState({
+            id: response.data.id,
+            username: response.data.username,
+            status: true,
+          });
           navigate('/');
           console.log(response);
           setUsername('');

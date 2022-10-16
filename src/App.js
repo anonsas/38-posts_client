@@ -10,7 +10,11 @@ import axios from 'axios';
 
 function App() {
   // Track wether we logged-in or not.
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({
+    id: 0,
+    username: '',
+    status: false,
+  });
 
   useEffect(() => {
     axios
@@ -20,10 +24,23 @@ function App() {
         },
       })
       .then((response) => {
-        if (response.data.error) setAuthState(false);
-        else setAuthState(true);
+        if (response.data.error) {
+          setAuthState({
+            id: 0,
+            username: '',
+            status: false,
+          });
+        } else {
+          setAuthState({
+            id: response.data.id,
+            username: response.data.username,
+            status: true,
+          });
+        }
       });
   }, []);
+
+  console.log(authState);
 
   return (
     // <AuthProvider>

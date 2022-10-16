@@ -11,11 +11,11 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar__pages">
-        <Link to="/">Home Page</Link>
+        <Link to="/">Home</Link>
         <Link to="/postform">Create A Post</Link>
       </div>
 
-      {!authState ? (
+      {!authState?.status ? (
         <div className="navbar__auth">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
