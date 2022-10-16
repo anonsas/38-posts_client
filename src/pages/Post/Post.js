@@ -7,32 +7,45 @@ import axios from 'axios';
 function Post() {
   const { id } = useParams();
   const [post, setPost] = useState({});
-  const [newComment, setNewComment] = useState('');
-  const [commentsList, setCommentsList] = useState([]);
+  const [comment, setComment] = useState('');
+  const [commentList, setCommentList] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:4000/posts/${id}`).then((response) => {
       setPost(response.data);
     });
     axios.get(`http://localhost:4000/comments/${id}`).then((response) => {
-      setCommentsList(response.data);
+      setCommentList(response.data);
+      console.log(response.data);
     });
   }, [id]);
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (!newComment) return;
+    if (!comment) return;
 
     const commentToAdd = {
-      commentText: newComment,
+      comment: comment,
       PostId: id,
     };
 
     axios
-      .post(`http://localhost:4000/comments`, commentToAdd)
+      .post(`http://localhost:4000/comments`, commentToAdd, {
+        headers: {
+          accessToken: sessionStorage.getItem('accessToken'),
+        },
+      })
       .then((response) => {
-        setCommentsList((prevState) => [...prevState, commentToAdd]);
-        setNewComment('');
+        if (response.data.error) {
+          console.log(response.data.error);
+        } else {
+          const commentToAdd = {
+            comment,
+            username: response.data.username,
+          };
+          setCommentList((prevState) => [...prevState, commentToAdd]);
+          setComment('');
+        }
       })
       .catch((error) => alert(error.message));
   };
@@ -50,19 +63,20 @@ function Post() {
           <input
             type="text"
             name="commentText"
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             placeholder="Message"
             autoComplete="off"
           />
           <button type="submit">Submit</button>
         </form>
 
-        <div className="comments-list">
-          {commentsList?.map((comment, i) => (
-            <p className="comment" key={i}>
-              {comment.commentText}
-            </p>
+        <div className="comment-list">
+          {commentList?.map((comment, i) => (
+            <div className="comment" key={i}>
+              <p className="comment__content">{comment.comment}</p>
+              <p className="comment__author">{comment.username}</p>
+            </div>
           ))}
         </div>
       </div>

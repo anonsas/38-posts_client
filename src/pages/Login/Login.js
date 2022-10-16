@@ -14,15 +14,19 @@ function Login() {
     e.preventDefault();
     if (!username || !password) return alert('Please fill the form!');
 
-    console.log(username, password);
     const loginUser = { username, password };
     axios
       .post('http://localhost:4000/auth/login', loginUser)
       .then((response) => {
-        // navigate('/');
-        console.log(response);
-        setUsername('');
-        setPassword('');
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          sessionStorage.setItem('accessToken', response.data);
+          navigate('/');
+          console.log(response);
+          setUsername('');
+          setPassword('');
+        }
       })
       .catch((error) => alert(error.message));
   };
