@@ -40,7 +40,7 @@ function App() {
       });
   }, []);
 
-  console.log(authState);
+
 
   return (
     // <AuthProvider>

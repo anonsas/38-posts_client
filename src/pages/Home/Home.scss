@@ -59,5 +59,9 @@
   &__like-icon {
     height: 3rem;
     width: 3rem;
+
+    &--active {
+      color: green;
+    }
   }
 }

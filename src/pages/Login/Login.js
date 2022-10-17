@@ -31,7 +31,6 @@ function Login() {
             status: true,
           });
           navigate('/');
-          console.log(response);
           setUsername('');
           setPassword('');
         }

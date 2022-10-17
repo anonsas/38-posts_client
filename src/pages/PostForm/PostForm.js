@@ -24,7 +24,6 @@ function PostForm() {
   } = useForm({ resolver: yupResolver(schema) });
 
   const submitForm = (data) => {
-    console.log(data);
     axios
       .post('http://localhost:4000/posts', data)
       .then((response) => {
