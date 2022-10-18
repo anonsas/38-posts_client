@@ -18,8 +18,8 @@ function PostForm() {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    if (!authState.status) navigate('/login');
-  }, [authState.status, navigate]);
+    if (!localStorage.getItem('accessToken')) navigate('/login');
+  }, [navigate]);
 
   const {
     register,

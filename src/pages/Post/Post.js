@@ -3,11 +3,12 @@ import './Post.scss';
 import { AuthContext } from '../../contexts/AuthContext';
 import CommentDelete from './CommentDelete';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function Post() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { authState } = useContext(AuthContext);
 
   const [post, setPost] = useState({});
@@ -26,7 +27,7 @@ function Post() {
     });
   }, [id]);
 
-  // DELETE A Comment, with Modal.
+  // DELETE A Comment.
   useEffect(() => {
     if (!deleteComment) return;
     axios
@@ -73,12 +74,32 @@ function Post() {
       .catch((error) => alert(error.message));
   };
 
+  const deletePostHandler = (postId) => {
+    axios
+      .delete(`http://localhost:4000/posts/${postId}`, {
+        headers: {
+          accessToken: localStorage.getItem('accessToken'),
+        },
+      })
+      .then((response) => {
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="post-page">
       <div className="post">
         <p className="post__title">{post?.title}</p>
         <p className="post__text">{post?.postText}</p>
         <p className="post__user">{post?.username}</p>
+        {authState?.username === post?.username && (
+          <button className="post__delete-btn" onClick={() => deletePostHandler(post.id)}>
+            X
+          </button>
+        )}
       </div>
       <div className="comment-container">
         <form className="comment-form" onSubmit={submitForm}>

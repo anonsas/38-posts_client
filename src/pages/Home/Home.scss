@@ -8,6 +8,7 @@
 }
 
 .post {
+  position: relative;
   text-decoration: none;
   width: 40rem;
   height: 30rem;
@@ -35,6 +36,16 @@
     flex: 60%;
     display: grid;
     place-content: center;
+  }
+
+  &__delete-btn {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    padding: 0;
+    color: royalblue;
+    background: white;
+    border-radius: 50%;
   }
 
   &__user-container {

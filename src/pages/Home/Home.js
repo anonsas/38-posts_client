@@ -15,7 +15,7 @@ function Home() {
   const [likedPostList, setLikedPostList] = useState([]);
 
   useEffect(() => {
-    if (!authState.status) {
+    if (!localStorage.getItem('accessToken')) {
       navigate('/login');
     } else {
       axios
@@ -27,7 +27,7 @@ function Home() {
           setLikedPostList(response.data.likedPostList.map((like) => like.PostId));
         });
     }
-  }, [authState.status, navigate]);
+  }, [navigate]);
 
   const likeHandler = (postId) => {
     axios
