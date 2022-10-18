@@ -1,26 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Home.scss';
 
 import axios from 'axios';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { HandThumbUpIcon } from '@heroicons/react/24/outline';
 import { HandThumbUpIcon as HandThumbUpIconActive } from '@heroicons/react/24/solid';
 
 function Home() {
+  const navigate = useNavigate();
+  const { authState } = useContext(AuthContext);
+
   const [postList, setPostList] = useState([]);
   const [likedPostList, setLikedPostList] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/posts', {
-        headers: { accessToken: localStorage.getItem('accessToken') },
-      })
-      .then((response) => {
-        setPostList(response.data.postList);
-        setLikedPostList(response.data.likedPostList.map((like) => like.PostId));
-      });
-  }, []);
+    if (!authState.status) {
+      navigate('/login');
+    } else {
+      axios
+        .get('http://localhost:4000/posts', {
+          headers: { accessToken: localStorage.getItem('accessToken') },
+        })
+        .then((response) => {
+          setPostList(response.data.postList);
+          setLikedPostList(response.data.likedPostList.map((like) => like.PostId));
+        });
+    }
+  }, [authState.status, navigate]);
 
   const likeHandler = (postId) => {
     axios

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './PostForm.scss';
+import { AuthContext } from '../../contexts/AuthContext';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,11 +11,15 @@ import { useNavigate } from 'react-router-dom';
 const schema = yup.object().shape({
   title: yup.string().required('Please enter title!'),
   postText: yup.string().required('Please enter message!'),
-  username: yup.string().min(3).max(25).required(),
 });
 
 function PostForm() {
   const navigate = useNavigate();
+  const { authState } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!authState.status) navigate('/login');
+  }, [authState.status, navigate]);
 
   const {
     register,
@@ -25,7 +30,11 @@ function PostForm() {
 
   const submitForm = (data) => {
     axios
-      .post('http://localhost:4000/posts', data)
+      .post('http://localhost:4000/posts', data, {
+        headers: {
+          accessToken: localStorage.getItem('accessToken'),
+        },
+      })
       .then((response) => {
         navigate('/');
         reset();
@@ -56,17 +65,6 @@ function PostForm() {
             autoComplete="off"
           />
           <p>{errors.postText?.message}</p>
-        </div>
-
-        <div className="form__input">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            {...register('username')}
-            placeholder="Username"
-            autoComplete="off"
-          />
-          <p>{errors.username?.message}</p>
         </div>
 
         <button type="submit">Submit</button>

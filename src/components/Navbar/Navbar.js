@@ -10,20 +10,21 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <div className="navbar__pages">
-        <Link to="/">Home</Link>
-        <Link to="/postform">Create A Post</Link>
-      </div>
-
       {!authState?.status ? (
         <div className="navbar__auth">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
         </div>
       ) : (
-        <div className="navbar__auth">
-          <Link to="/profile">Profile</Link>
-        </div>
+        <>
+          <div className="navbar__pages">
+            <Link to="/">Home</Link>
+            <Link to="/postform">Create A Post</Link>
+          </div>
+          <div className="navbar__auth">
+            <Link to="/profile">Profile</Link>
+          </div>
+        </>
       )}
 
       {/* {!auth.user && <Link to="/login">Login</Link>}
