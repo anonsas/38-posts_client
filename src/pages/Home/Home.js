@@ -1,15 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.scss';
+import Card from '../../components/Card/Card';
 
 import axios from 'axios';
-import { AuthContext } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { HandThumbUpIcon } from '@heroicons/react/24/outline';
-import { HandThumbUpIcon as HandThumbUpIconActive } from '@heroicons/react/24/solid';
 
 function Home() {
   const navigate = useNavigate();
-  const { authState } = useContext(AuthContext);
 
   const [postList, setPostList] = useState([]);
   const [likedPostList, setLikedPostList] = useState([]);
@@ -65,36 +62,20 @@ function Home() {
   };
 
   return (
-    <div className="post-container">
+    <main className="posts">
       {postList?.map((post) => (
-        <div key={post.id} className="post">
-          <p className="post__title">{post.title}</p>
-          <p className="post__text" onClick={() => navigate(`/post/${post.id}`)}>
-            {post.postText}
-          </p>
-          <div className="post__user-container">
-            <p className="post__user">{post.username}</p>
-            <div className="post__like-container">
-              {/* Is there any PostId in LikedPostList[] 
-            If it exist, it means I liked it. */}
-              {likedPostList?.includes(post.id) ? (
-                <HandThumbUpIconActive
-                  className="post__like-icon"
-                  onClick={() => likeHandler(post.id)}
-                />
-              ) : (
-                <HandThumbUpIcon
-                  className="post__like-icon"
-                  onClick={() => likeHandler(post.id)}
-                />
-              )}
-
-              <span className="post__like-count">{post.Likes.length} likes</span>
-            </div>
-          </div>
-        </div>
+        <Card
+          id={post.id}
+          title={post.title}
+          text={post.postText}
+          userId={post.UserId}
+          username={post.username}
+          likeHandler={likeHandler}
+          likedPostList={likedPostList}
+          likesCount={post.Likes.length}
+        />
       ))}
-    </div>
+    </main>
   );
 }
 

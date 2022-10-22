@@ -10,9 +10,8 @@ function NotFound() {
         <h1>404</h1>
         <h2>PAGE NOT FOUND</h2>
         <div className="not-found__actions">
-          <h3>Try this links:</h3>
+          <h3>Try this link:</h3>
           <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
         </div>
       </div>
 

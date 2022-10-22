@@ -19,7 +19,8 @@ function Navbar() {
         <>
           <div className="navbar__pages">
             <Link to="/">Home</Link>
-            <Link to="/postform">Create A Post</Link>
+            <Link to="/postform">New Post</Link>
+            <Link to="/user/1">User</Link>
           </div>
           <div className="navbar__auth">
             <Link to="/profile">Profile</Link>

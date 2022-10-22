@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import './Profile.scss';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 // import { useAuth } from '../../contexts/AuthContext';

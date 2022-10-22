@@ -1,0 +1,73 @@
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  height: 30rem;
+  border-radius: 1rem;
+  border: 1px solid lightgray;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  &__title {
+    flex: 20%;
+    color: white;
+    background-color: royalblue;
+    border-bottom: 1px solid lightgray;
+
+    display: grid;
+    place-content: center;
+  }
+
+  &__text {
+    flex: 60%;
+
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+  }
+
+  &__delete-btn {
+    position: absolute;
+    right: -1rem;
+    top: -1rem;
+    padding: 0;
+    color: royalblue;
+    background: white;
+    border-radius: 50%;
+  }
+
+  &__details-container {
+    flex: 20%;
+    padding: 0 2rem;
+    color: white;
+    background-color: royalblue;
+    border-top: 1px solid lightgray;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__like-container {
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+  }
+
+  &__like-icon {
+    cursor: pointer;
+    height: 3rem;
+    width: 3rem;
+
+    &--active {
+      color: green;
+    }
+  }
+}
