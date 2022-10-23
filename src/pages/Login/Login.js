@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './Login.scss';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
+import LoginForm from './LoginForm/LoginForm';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const auth = useAuth();
   const navigate = useNavigate();
-  const { setAuthUser } = useContext(AuthContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +26,7 @@ function Login() {
           alert(response.data.error);
         } else {
           localStorage.setItem('accessToken', response.data.accessToken);
-          setAuthUser({
+          auth.login({
             id: response.data.id,
             username: response.data.username,
             status: true,
@@ -39,34 +40,17 @@ function Login() {
   };
 
   return (
-    <div className="post-form">
-      <h2>Sign-in</h2>
-      <form onSubmit={submitFormHandler} className="form">
-        <div className="form__input">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
+    <main className="login">
+      <h1 className="login__heading">Sign-in</h1>
 
-        <div className="form__input">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            autoComplete="off"
-          />
-        </div>
-
-        <button type="submit">Login</button>
-      </form>
-    </div>
+      <LoginForm
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        submitFormHandler={submitFormHandler}
+      />
+    </main>
   );
 }
 
