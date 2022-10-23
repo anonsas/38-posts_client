@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Post.scss';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import Card from '../../components/Card/Card';
 import CommentDelete from './CommentDelete';
 
@@ -9,8 +9,8 @@ import axios from 'axios';
 
 function Post() {
   const { id } = useParams();
+  const auth = useAuth();
   const navigate = useNavigate();
-  const { authUser } = useContext(AuthContext);
 
   const [post, setPost] = useState({});
   const [comment, setComment] = useState('');
@@ -112,7 +112,7 @@ function Post() {
         <p className="post__title">{post?.title}</p>
         <p className="post__text">{post?.postText}</p>
         <p className="post__user">{post?.username}</p>
-        {authUser?.username === post?.username && (
+        {auth.user?.username === post?.username && (
           <button className="post__delete-btn" onClick={() => deletePostHandler(post.id)}>
             X
           </button>
@@ -138,7 +138,7 @@ function Post() {
             <div className="comment" key={i}>
               <p className="comment__content">{comment.comment}</p>
               <p className="comment__author">{comment.username}</p>
-              {authUser?.username === comment.username && (
+              {auth.user?.username === comment.username && (
                 <button onClick={() => setDeleteCommentModalData(comment)}>X</button>
               )}
             </div>

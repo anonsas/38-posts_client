@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react';
+import { useState, useLayoutEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 
 export const AuthContext = createContext();
@@ -6,9 +6,8 @@ export const AuthContext = createContext();
 // To wrap App.js Component.
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('');
-  const [authUser, setAuthUser] = useState('');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios
       .get('http://localhost:4000/auth/auth', {
         headers: {
@@ -17,33 +16,28 @@ export const AuthProvider = ({ children }) => {
       })
       .then((response) => {
         if (response.data.error) {
-          setAuthUser('');
+          setUser('');
         } else {
-          setAuthUser({
+          setUser({
             id: response.data.id,
             username: response.data.username,
             status: true,
           });
         }
       });
-  }, [setAuthUser]);
+  }, []);
 
-  // const login = (user) => {
-  //   setUser(user);
-  // };
-
-  // const logout = () => {
-  //   setUser(null);
-  // };
+  const login = (user) => setUser(user);
+  const logout = () => setUser('');
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 // To use it in components.
-// export const useAuth = () => {
-//   return useContext(AuthContext);
-// };
+export const useAuth = () => {
+  return useContext(AuthContext);
+};

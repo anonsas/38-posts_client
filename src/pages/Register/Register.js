@@ -13,7 +13,7 @@ const schema = yup.object().shape({
 });
 
 function Register() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,7 +27,7 @@ function Register() {
     axios
       .post('http://localhost:4000/auth', data)
       .then((response) => {
-        // navigate('/login');
+        navigate('/login');
         reset();
       })
       .catch((error) => alert(error.message));

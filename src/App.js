@@ -2,6 +2,7 @@ import './App.scss';
 import { Page } from './constants';
 import { Navbar } from './components/index';
 import { AuthProvider } from './contexts/AuthContext';
+
 import { Routes, Route } from 'react-router-dom';
 
 function App() {

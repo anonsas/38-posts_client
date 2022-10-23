@@ -1,22 +1,21 @@
-import { useContext } from 'react';
 import './Profile.scss';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
+  const auth = useAuth();
   const navigate = useNavigate();
-  const { authUser, setAuthUser } = useContext(AuthContext);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
-    setAuthUser('');
+    auth.logout('');
     navigate('/login');
   };
 
   return (
     <>
-      <h2>Welcome - {authUser?.username}</h2>
+      <h2>Welcome - {auth.user?.username}</h2>
       <button onClick={handleLogout}>Logout</button>
     </>
   );
