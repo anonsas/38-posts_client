@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './PostForm.scss';
-import { AuthContext } from '../../contexts/AuthContext';
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -15,7 +14,6 @@ const schema = yup.object().shape({
 
 function PostForm() {
   const navigate = useNavigate();
-  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
     if (!localStorage.getItem('accessToken')) navigate('/login');

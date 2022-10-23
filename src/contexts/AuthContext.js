@@ -1,25 +1,49 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
+import axios from 'axios';
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
-// export const AuthProvider = ({ children }) => {
-//   const [user, setUser] = useState(null);
+// To wrap App.js Component.
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState('');
+  const [authUser, setAuthUser] = useState('');
 
-//   const login = (user) => {
-//     setUser(user);
-//   };
+  useEffect(() => {
+    axios
+      .get('http://localhost:4000/auth/auth', {
+        headers: {
+          accessToken: localStorage.getItem('accessToken'),
+        },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          setAuthUser('');
+        } else {
+          setAuthUser({
+            id: response.data.id,
+            username: response.data.username,
+            status: true,
+          });
+        }
+      });
+  }, [setAuthUser]);
 
-//   const logout = () => {
-//     setUser(null);
-//   };
+  // const login = (user) => {
+  //   setUser(user);
+  // };
 
-//   return (
-//     <AuthContext.Provider value={{ user, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
+  // const logout = () => {
+  //   setUser(null);
+  // };
 
+  return (
+    <AuthContext.Provider value={{ authUser, setAuthUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+// To use it in components.
 // export const useAuth = () => {
 //   return useContext(AuthContext);
 // };

@@ -62,10 +62,11 @@ function Home() {
   };
 
   return (
-    <main className="posts">
+    <main className="home">
       {postList?.map((post) => (
         <Card
-          id={post.id}
+          key={post.id}
+          postId={post.id}
           title={post.title}
           text={post.postText}
           userId={post.UserId}

@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import './Navbar.scss';
-import { Link } from 'react-router-dom';
-// import { useAuth } from '../../contexts/User';
 import { AuthContext } from '../../contexts/AuthContext';
 
+import { Link } from 'react-router-dom';
+
 function Navbar() {
-  const { authState } = useContext(AuthContext);
-  // const auth = useAuth();
+  const { authUser } = useContext(AuthContext);
 
   return (
     <div className="navbar">
-      {!authState?.status ? (
+      {!authUser.status ? (
         <div className="navbar__auth">
           <Link to="/login">Login</Link>
           <Link to="/register">Register</Link>
@@ -27,9 +26,6 @@ function Navbar() {
           </div>
         </>
       )}
-
-      {/* {!auth.user && <Link to="/login">Login</Link>}
-      {auth.user && <Link to="/profile">Profile</Link>} */}
     </div>
   );
 }

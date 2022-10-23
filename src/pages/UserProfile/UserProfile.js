@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './UserProfile.scss';
-import { useNavigate, useParams } from 'react-router-dom';
+import Card from '../../components/Card/Card';
+
 import axios from 'axios';
-import { HandThumbUpIcon as HandThumbUpIconActive } from '@heroicons/react/24/solid';
+import { useParams } from 'react-router-dom';
 
 function UserProfile() {
   const { id } = useParams();
+
   const [userProfile, setUserProfile] = useState('');
   const [userPostList, setUserPostList] = useState([]);
 
@@ -25,26 +27,22 @@ function UserProfile() {
       .catch((error) => alert(error));
   }, [id]);
 
-  console.log(userProfile);
-  console.log(userPostList);
-
   return (
     <main className="user-profile">
-      <h2 className="user-profile__heading">{userProfile?.username} user's page</h2>
-      <div className="user-profile__details-container"></div>
+      <div className="user-profile__details-container">
+        <h2 className="user-profile__heading">{userProfile?.username} user's page</h2>
+      </div>
       <div className="user-profile__posts-container">
         {userPostList?.map((post) => (
-          <section key={post.id} className="post">
-            <span className="post__title">{post.title}</span>
-            <span className="post__text">{post.postText}</span>
-            <div className="post__user-container">
-              {/* <span className="post__user" onClick={() => navigate(`/user/${}`)}>{post.username}</span> */}
-              <div className="post__like-container">
-                <HandThumbUpIconActive />
-                <span className="post__like-count">{post.Likes.length} likes</span>
-              </div>
-            </div>
-          </section>
+          <Card
+            key={post.id}
+            postId={post.id}
+            title={post.title}
+            text={post.postText}
+            userId={post.UserId}
+            username={post.username}
+            likesCount={post.Likes.length}
+          />
         ))}
       </div>
     </main>

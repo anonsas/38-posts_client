@@ -6,7 +6,7 @@ import { HandThumbUpIcon } from '@heroicons/react/24/outline';
 import { HandThumbUpIcon as HandThumbUpIconActive } from '@heroicons/react/24/solid';
 
 function Card({
-  id,
+  postId,
   title,
   text,
   userId,
@@ -18,9 +18,9 @@ function Card({
   const navigate = useNavigate();
 
   return (
-    <article key={id} className="card">
+    <article className="card">
       <h3 className="card__title">{title}</h3>
-      <span className="card__text" onClick={() => navigate(`/post/${id}`)}>
+      <span className="card__text" onClick={() => navigate(`/post/${postId}`)}>
         {text}
       </span>
       <div className="card__details-container">
@@ -30,16 +30,20 @@ function Card({
         <div className="card__like-container">
           {/* Is there any PostId in LikedPostList[] 
           If it exist, it means I liked it before */}
-          {likedPostList?.includes(id) ? (
-            <HandThumbUpIconActive
-              className="card__like-icon"
-              onClick={() => likeHandler(id)}
-            />
+          {likeHandler ? (
+            likedPostList?.includes(postId) ? (
+              <HandThumbUpIconActive
+                className="card__like-icon"
+                onClick={() => likeHandler(postId)}
+              />
+            ) : (
+              <HandThumbUpIcon
+                className="card__like-icon"
+                onClick={() => likeHandler(postId)}
+              />
+            )
           ) : (
-            <HandThumbUpIcon
-              className="card__like-icon"
-              onClick={() => likeHandler(id)}
-            />
+            <HandThumbUpIconActive className="card__like-icon" />
           )}
 
           <span className="card__like-count">{likesCount} likes</span>

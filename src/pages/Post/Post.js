@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import './Post.scss';
 import { AuthContext } from '../../contexts/AuthContext';
+import Card from '../../components/Card/Card';
 import CommentDelete from './CommentDelete';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,7 +10,7 @@ import axios from 'axios';
 function Post() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { authState } = useContext(AuthContext);
+  const { authUser } = useContext(AuthContext);
 
   const [post, setPost] = useState({});
   const [comment, setComment] = useState('');
@@ -19,12 +20,18 @@ function Post() {
 
   // GET A Post, with ALL Comments.
   useEffect(() => {
-    axios.get(`http://localhost:4000/posts/${id}`).then((response) => {
-      setPost(response.data);
-    });
-    axios.get(`http://localhost:4000/comments/${id}`).then((response) => {
-      setCommentList(response.data);
-    });
+    axios
+      .get(`http://localhost:4000/posts/${id}`)
+      .then((response) => {
+        setPost(response.data);
+      })
+      .catch((error) => alert(error));
+    axios
+      .get(`http://localhost:4000/comments/${id}`)
+      .then((response) => {
+        setCommentList(response.data);
+      })
+      .catch((error) => alert(error));
   }, [id]);
 
   // DELETE A Comment.
@@ -89,18 +96,29 @@ function Post() {
       });
   };
 
+  console.log(comment);
+
   return (
     <div className="post-page">
+      {/* <Card
+        postId={post?.id}
+        title={post?.title}
+        text={post?.postText}
+        userId={post?.UserId}
+        username={post?.username}
+        likesCount={post?.Likes.length}
+      /> */}
       <div className="post">
         <p className="post__title">{post?.title}</p>
         <p className="post__text">{post?.postText}</p>
         <p className="post__user">{post?.username}</p>
-        {authState?.username === post?.username && (
+        {authUser?.username === post?.username && (
           <button className="post__delete-btn" onClick={() => deletePostHandler(post.id)}>
             X
           </button>
         )}
       </div>
+
       <div className="comment-container">
         <form className="comment-form" onSubmit={submitForm}>
           <label htmlFor="commentText">What do you think?</label>
@@ -120,7 +138,7 @@ function Post() {
             <div className="comment" key={i}>
               <p className="comment__content">{comment.comment}</p>
               <p className="comment__author">{comment.username}</p>
-              {authState.username === comment.username && (
+              {authUser?.username === comment.username && (
                 <button onClick={() => setDeleteCommentModalData(comment)}>X</button>
               )}
             </div>

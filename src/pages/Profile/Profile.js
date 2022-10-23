@@ -1,34 +1,22 @@
 import { useContext } from 'react';
 import './Profile.scss';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
-// import { useAuth } from '../../contexts/AuthContext';
+
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const navigate = useNavigate();
-  const { authState, setAuthState } = useContext(AuthContext);
-  // const auth = useAuth();
+  const { authUser, setAuthUser } = useContext(AuthContext);
 
   const handleLogout = () => {
-    // 1. Clear the Token from localStorage
     localStorage.removeItem('accessToken');
-
-    // 2. Change AuthState to false
-    setAuthState({
-      id: 0,
-      username: '',
-      status: false,
-    });
-
-    // 3. Navigate user to Homepage
-    navigate('/');
-
-    // auth.logout();
+    setAuthUser('');
+    navigate('/login');
   };
 
   return (
     <>
-      <h2>Welcome - {authState?.username}</h2>
+      <h2>Welcome - {authUser?.username}</h2>
       <button onClick={handleLogout}>Logout</button>
     </>
   );

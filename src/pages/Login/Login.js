@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
-  const { setAuthState } = useContext(AuthContext);
+  const { setAuthUser } = useContext(AuthContext);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,12 +25,12 @@ function Login() {
           alert(response.data.error);
         } else {
           localStorage.setItem('accessToken', response.data.accessToken);
-          setAuthState({
+          setAuthUser({
             id: response.data.id,
             username: response.data.username,
             status: true,
           });
-          navigate('/');
+          navigate('/', { replace: true });
           setUsername('');
           setPassword('');
         }
