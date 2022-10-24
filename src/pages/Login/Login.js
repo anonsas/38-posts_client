@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.scss';
 import { useAuth } from '../../contexts/AuthContext';
-import LoginForm from './LoginForm/LoginForm';
+import LoginPolicies from './LoginPolicies/LoginPolicies';
+import Form from '../../components/Form/Form';
 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -13,14 +14,13 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitFormHandler = (e) => {
-    e.preventDefault();
-    if (!username || !password) return alert('Please fill the form!');
+  const [loginData, setLoginData] = useState(null);
 
-    const loginUser = { username, password };
+  useEffect(() => {
+    if (!loginData) return;
 
     axios
-      .post('http://localhost:4000/auth/login', loginUser)
+      .post('http://localhost:4000/auth/login', loginData)
       .then((response) => {
         if (response.data.error) {
           alert(response.data.error);
@@ -37,19 +37,29 @@ function Login() {
         }
       })
       .catch((error) => alert(error.message));
+  }, [auth, navigate, loginData]);
+
+  const submitLoginHandler = (e) => {
+    e.preventDefault();
+    if (!username || !password) return alert('Please fill the form!');
+    setLoginData({ username, password });
   };
 
   return (
     <main className="login">
       <h1 className="login__heading">Sign-in</h1>
 
-      <LoginForm
+      <Form
+        submitFormHandler={submitLoginHandler}
+        formType="login"
         username={username}
         setUsername={setUsername}
         password={password}
         setPassword={setPassword}
-        submitFormHandler={submitFormHandler}
+        submitText="Sign In"
       />
+
+      <LoginPolicies link="/register" />
     </main>
   );
 }

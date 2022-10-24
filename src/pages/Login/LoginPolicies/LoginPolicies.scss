@@ -1,0 +1,9 @@
+.login-policies {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  &__paragraph {
+    font-size: 1.2rem;
+  }
+}

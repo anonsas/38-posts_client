@@ -3,11 +3,12 @@ import './LoginPolicies.scss';
 
 import { useNavigate } from 'react-router-dom';
 
-function LoginPolicies() {
+function LoginPolicies({ link }) {
   const navigate = useNavigate();
+  console.log(link);
 
   return (
-    <div className="login-policies-container">
+    <div className="login-policies">
       <p className="login-policies__paragraph">
         By signing-in you agree to the BookVilnius (FAKE) Conditions of Use & Sale. Please
         see our Privacy Notice, our Cookies Notice and our Interest-based Ads Notice.
@@ -15,7 +16,7 @@ function LoginPolicies() {
       <button
         type="button"
         className="login-policies__register-btn"
-        onClick={() => navigate('/register')}
+        onClick={() => navigate(link)}
       >
         Create your BookVilnius Account
       </button>
