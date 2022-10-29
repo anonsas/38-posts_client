@@ -1,22 +1,44 @@
 .overlay {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  min-height: 100%;
-  min-width: 100%;
-  background-color: rgba(#000000, 0.8);
-  overflow: hidden;
-
-  display: grid;
-  place-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(0,0,0,0.7);
+    box-shadow: $telia-shadow-large;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+    overflow: scroll;
+    padding-bottom: 12rem;
 }
 
 .modal {
-  padding: 4rem;
-  background-color: #fff;
+    position: relative;
+    width: auto;
+    margin: 10rem 2.4rem 0;
+    background-color: $telia-white;
+    padding: 3.4rem 2.4rem 2.4rem;
+    border-radius: $telia-border-radius-16;
+    @include laptop {
+        margin: 20.4rem 2.4rem auto;
+        
+    }
+    &__exit-btn {
+        z-index: 1;
+        position: absolute;
+        border: none;
+        background-color: white;
+        cursor: pointer;
+        top: 3.8rem;
+        right: 3.8rem;
+    }
+}
 
-  display: flex;
-  flex-direction: column;
-  row-gap: 1rem;
+.show {
+    opacity: 1;
+    pointer-events: all;
 }
