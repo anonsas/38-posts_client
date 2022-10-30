@@ -1,0 +1,9 @@
+.comment-form {
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  border-bottom: 2px solid var(--secondary-color);
+}

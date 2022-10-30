@@ -1,0 +1,14 @@
+.comment {
+  padding: 1rem;
+  border: 1px solid var(--lightGray-color);
+  border-radius: 1rem;
+  background-color: var(--lightGray-color);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__author {
+    font-weight: 500;
+  }
+}

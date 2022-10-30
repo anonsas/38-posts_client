@@ -1,0 +1,9 @@
+.comments {
+  flex-basis: 50%;
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+}

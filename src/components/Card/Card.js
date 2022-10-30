@@ -17,7 +17,7 @@ function Card({
   authUser,
 }) {
   const navigate = useNavigate();
-  console.log(authUser);
+
   return (
     <article className="card">
       <h3 className="card__title">{title}</h3>

@@ -1,21 +1,26 @@
-import { useState } from 'react';
 import './DeleteCommentModal.scss';
 import { Modal } from '../../index';
 
-function DeleteCommentModal() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const closeModalHandler = () => {
-    setIsModalOpen(false);
-  };
-
+function DeleteCommentModal({
+  isDeleteModalOpen,
+  closeModalHandler,
+  deleteCommentHandler,
+}) {
   return (
     <Modal
       modalId="delete-comment-modal"
-      isModalOpen={isModalOpen}
+      isModalOpen={isDeleteModalOpen}
       closeModal={closeModalHandler}
     >
-      <div>DeleteCommentModal</div>
+      <h5 className="modal__heading">Are you sure you want to delete this?</h5>
+      <div className="modal__actions">
+        <button type="button" onClick={deleteCommentHandler}>
+          I'm sure
+        </button>
+        <button type="button" onClick={closeModalHandler}>
+          Cancel
+        </button>
+      </div>
     </Modal>
   );
 }
