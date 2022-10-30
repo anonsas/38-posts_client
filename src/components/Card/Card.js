@@ -14,9 +14,10 @@ function Card({
   likeHandler,
   likedPostList,
   likesCount,
+  authUser,
 }) {
   const navigate = useNavigate();
-
+  console.log(authUser);
   return (
     <article className="card">
       <h3 className="card__title">{title}</h3>
@@ -49,6 +50,11 @@ function Card({
           <span className="card__like-count">{likesCount} likes</span>
         </div>
       </div>
+
+      {/* <button className="card__delete-btn" onClick={() => deletePostHandler(postId)}>
+            X
+          </button> */}
+      {authUser && <button className="card__delete-btn">X</button>}
     </article>
   );
 }
