@@ -7,7 +7,7 @@ import Profile from '../pages/Profile/Profile';
 import UserProfile from '../pages/UserProfile/UserProfile';
 import NotFound from '../pages/NotFound/NotFound';
 
-export default {
+const pages = {
   Home,
   Login,
   Register,
@@ -17,3 +17,5 @@ export default {
   UserProfile,
   NotFound,
 };
+
+export default pages;

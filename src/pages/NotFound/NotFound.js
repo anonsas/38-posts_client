@@ -1,7 +1,7 @@
 import React from 'react';
 import './NotFound.scss';
 import { Link } from 'react-router-dom';
-import NotFoundImage from '../../assets/notFound-image.png';
+import { images } from '../../constants/index';
 
 function NotFound() {
   return (
@@ -16,7 +16,7 @@ function NotFound() {
       </div>
 
       <div className="not-found__image-container">
-        <img src={NotFoundImage} alt="ufo" />
+        <img src={images.notFound} alt="ufo" />
       </div>
     </main>
   );
