@@ -29,6 +29,7 @@ function Login() {
           auth.login({
             id: response.data.id,
             username: response.data.username,
+            role: response.data.role,
             status: true,
           });
           navigate('/', { replace: true });

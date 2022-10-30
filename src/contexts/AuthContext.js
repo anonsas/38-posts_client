@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 // To wrap App.js Component.
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
 
   useLayoutEffect(() => {
     axios
@@ -16,11 +16,12 @@ export const AuthProvider = ({ children }) => {
       })
       .then((response) => {
         if (response.data.error) {
-          setUser('');
+          setUser({});
         } else {
           setUser({
             id: response.data.id,
             username: response.data.username,
+            role: response.data.role,
             status: true,
           });
         }
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (user) => setUser(user);
-  const logout = () => setUser('');
+  const logout = () => setUser({});
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

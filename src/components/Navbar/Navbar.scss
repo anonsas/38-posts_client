@@ -1,11 +1,33 @@
-.navbar {
-  padding: 2rem 4rem;
+.header {
+  padding: 0 2rem;
   background-color: #0077cc;
-  display: flex;
-  justify-content: space-between;
 
-  &__pages,
-  &__auth {
+  @media screen and (min-width: 768px) {
+    padding: 0 4rem;
+  }
+
+  &__nav-offline,
+  &__nav-online {
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.8rem;
+    }
+  }
+
+  &__logo-link {
+    line-height: 100%;
+  }
+
+  &__logo {
+    width: 16rem;
+    object-fit: contain;
+  }
+
+  &__links {
     display: flex;
     column-gap: 2rem;
   }

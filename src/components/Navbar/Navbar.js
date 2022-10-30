@@ -1,31 +1,33 @@
 import './Navbar.scss';
 import { useAuth } from '../../contexts/AuthContext';
+import { images } from '../../constants';
 
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   const auth = useAuth();
 
   return (
-    <div className="navbar">
+    <header className="header">
       {!auth.user.status ? (
-        <div className="navbar__auth">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
+        <nav className="header__nav-offline">
+          <img src={images.logo} alt="logo" className="header__logo" />
+          <NavLink to="/login">Login</NavLink>
+        </nav>
       ) : (
-        <>
-          <div className="navbar__pages">
-            <Link to="/">Home</Link>
-            <Link to="/postform">New Post</Link>
-            <Link to="/user/1">User</Link>
+        <nav className="header__nav-online">
+          <NavLink to="/" className="header__logo-link">
+            <img src={images.logo} alt="logo" className="header__logo" />
+          </NavLink>
+          <div className="header__links">
+            {auth.user.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
+            <NavLink to="/postform">New Post</NavLink>
+            <NavLink to="/user/1">User</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
           </div>
-          <div className="navbar__auth">
-            <Link to="/profile">Profile</Link>
-          </div>
-        </>
+        </nav>
       )}
-    </div>
+    </header>
   );
 }
 

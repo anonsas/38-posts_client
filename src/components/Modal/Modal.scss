@@ -19,23 +19,26 @@
 .modal {
   position: relative;
   width: auto;
+  padding: 4rem;
   margin: 10rem 2.4rem 0;
   background-color: #fff;
-  padding: 3.4rem 2.4rem 2.4rem;
   border-radius: 1.6rem;
 
   @media screen and (min-width: 768px) {
+    padding: 4rem 6rem;
     margin: 20.4rem 2.4rem auto;
   }
 
   &__exit-btn {
+    height: 2.5rem;
+
     z-index: 1;
     position: absolute;
     border: none;
     background-color: #fff;
     cursor: pointer;
-    top: 3.8rem;
-    right: 3.8rem;
+    top: 1rem;
+    right: 1rem;
   }
 }
 

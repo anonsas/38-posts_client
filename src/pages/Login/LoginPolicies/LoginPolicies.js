@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginPolicies({ link }) {
   const navigate = useNavigate();
-  console.log(link);
 
   return (
     <div className="login-policies">
       <p className="login-policies__paragraph">
-        By signing-in you agree to the BookVilnius (FAKE) Conditions of Use & Sale. Please
+        By signing-in you agree to the FinalExam (FAKE) Conditions of Use & Sale. Please
         see our Privacy Notice, our Cookies Notice and our Interest-based Ads Notice.
       </p>
       <button
@@ -18,7 +17,7 @@ function LoginPolicies({ link }) {
         className="login-policies__register-btn"
         onClick={() => navigate(link)}
       >
-        Create your BookVilnius Account
+        Create your FinalExam Account
       </button>
     </div>
   );

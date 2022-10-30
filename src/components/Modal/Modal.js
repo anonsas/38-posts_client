@@ -30,9 +30,14 @@ function Modal({ isModalOpen, children, modalId, closeModal }) {
     <Portal portalId={modalId}>
       <div className={`overlay ${isModalOpen ? 'show' : ''}`}>
         <div className="modal">
-          <button onClick={() => closeModal()} autoFocus className="modal__exit-btn">
-            <img src={icons.close} alt="close button" />
-          </button>
+          <img
+            src={icons.close}
+            onClick={() => closeModal()}
+            autoFocus
+            alt="close button"
+            className="modal__exit-btn"
+          />
+
           {children}
         </div>
       </div>

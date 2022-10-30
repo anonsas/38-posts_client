@@ -7,13 +7,14 @@ import axios from 'axios';
 
 function Comments({ postId }) {
   const [comment, setComment] = useState('');
-  const [commentList, setCommentList] = useState([]);
+  const [commentList, setCommentList] = useState(null);
+  const [commentData, setCommentData] = useState(null);
 
   const [deleteComment, setDeleteComment] = useState(null);
   const [deleteCommentModalData, setDeleteCommentModalData] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Get All Comments, based on PostId.
+  // GET ALL COMMENTS, BASED ON PostId.
   useEffect(() => {
     axios
       .get(`http://localhost:4000/comments/${postId}`)
@@ -21,7 +22,28 @@ function Comments({ postId }) {
       .catch((error) => alert(error));
   }, [postId]);
 
-  // Delete A Comment.
+  // POST A COMMENT.
+  useEffect(() => {
+    if (!commentData) return;
+    axios
+      .post(`http://localhost:4000/comments`, commentData, {
+        headers: {
+          accessToken: localStorage.getItem('accessToken'),
+        },
+      })
+      .then((response) => {
+        if (response.data.error) console.log(response.data.error);
+        else {
+          commentData.username = response.data.username;
+          setCommentList((prevState) => [...prevState, commentData]);
+          setComment('');
+          setCommentData(null);
+        }
+      })
+      .catch((error) => alert(error.message));
+  }, [comment, commentData, postId]);
+
+  // DELETE A COMMENT.
   useEffect(() => {
     if (!deleteComment) return;
     axios
@@ -37,34 +59,13 @@ function Comments({ postId }) {
       });
   }, [deleteComment]);
 
-  // FORM SUBMIT.
   const submitCommentForm = (e) => {
     e.preventDefault();
-    if (!comment) return;
 
-    const commentToAdd = {
+    setCommentData({
       comment: comment,
       PostId: postId,
-    };
-
-    axios
-      .post(`http://localhost:4000/comments`, commentToAdd, {
-        headers: {
-          accessToken: localStorage.getItem('accessToken'),
-        },
-      })
-      .then((response) => {
-        if (response.data.error) console.log(response.data.error);
-        else {
-          const commentToAdd = {
-            comment,
-            username: response.data.username,
-          };
-          setCommentList((prevState) => [...prevState, commentToAdd]);
-          setComment('');
-        }
-      })
-      .catch((error) => alert(error.message));
+    });
   };
 
   const openDeleteModalHandler = (commentItem) => {

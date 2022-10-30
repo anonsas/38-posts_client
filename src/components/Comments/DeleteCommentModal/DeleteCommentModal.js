@@ -12,15 +12,17 @@ function DeleteCommentModal({
       isModalOpen={isDeleteModalOpen}
       closeModal={closeModalHandler}
     >
-      <h5 className="modal__heading">Are you sure you want to delete this?</h5>
-      <div className="modal__actions">
-        <button type="button" onClick={deleteCommentHandler}>
-          I'm sure
-        </button>
-        <button type="button" onClick={closeModalHandler}>
-          Cancel
-        </button>
-      </div>
+      <main className="delete-modal">
+        <h3 className="delete-modal__heading">Are you sure you want to delete this?</h3>
+        <div className="delete-modal__actions">
+          <button type="button" onClick={deleteCommentHandler}>
+            I'm sure
+          </button>
+          <button type="button" onClick={closeModalHandler}>
+            Cancel
+          </button>
+        </div>
+      </main>
     </Modal>
   );
 }
