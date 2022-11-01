@@ -22,7 +22,6 @@ function Navbar() {
           <div className="header__links">
             {auth.user.role === 'admin' && <NavLink to="/admin">Admin</NavLink>}
             <NavLink to="/postform">New Post</NavLink>
-            <NavLink to="/user/1">User</NavLink>
             <NavLink to="/profile">Profile</NavLink>
           </div>
         </nav>

@@ -22,9 +22,8 @@ function Login() {
     axios
       .post('http://localhost:4000/auth/login', loginData)
       .then((response) => {
-        if (response.data.error) {
-          alert(response.data.error);
-        } else {
+        if (response.data.error) alert(response.data.error);
+        else {
           localStorage.setItem('accessToken', response.data.accessToken);
           auth.login({
             id: response.data.id,

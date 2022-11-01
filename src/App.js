@@ -11,7 +11,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Page.Home />} />
-        <Route path="/admin" element={<Page.Admin />} />
+        <Route path="admin" element={<Page.Admin />} />
         <Route path="login" element={<Page.Login />} />
         <Route path="register" element={<Page.Register />} />
         <Route path="profile" element={<Page.Profile />} />

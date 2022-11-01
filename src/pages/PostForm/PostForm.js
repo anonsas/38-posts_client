@@ -1,68 +1,91 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PostForm.scss';
 
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const schema = yup.object().shape({
-  title: yup.string().required('Please enter title!'),
-  postText: yup.string().required('Please enter message!'),
-});
-
 function PostForm() {
   const navigate = useNavigate();
+
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+  const [invalidTitle, setInvalidTitle] = useState(false);
+  const [invalidMessage, setInvalidMessage] = useState(false);
+
+  const [postData, setPostData] = useState(null);
 
   useEffect(() => {
     if (!localStorage.getItem('accessToken')) navigate('/login');
   }, [navigate]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  useEffect(() => {
+    if (!postData) return;
 
-  const submitForm = (data) => {
     axios
-      .post('http://localhost:4000/posts', data, {
+      .post('http://localhost:4000/posts', postData, {
         headers: {
           accessToken: localStorage.getItem('accessToken'),
         },
       })
       .then((response) => {
         navigate('/');
-        reset();
+        setTitle('');
+        setMessage('');
+        setInvalidTitle(false);
+        setInvalidMessage(false);
       })
       .catch((error) => alert(error.message));
+  }, [postData, navigate]);
+
+  const submitFormHandler = (e) => {
+    e.preventDefault();
+
+    if (!title && !message) {
+      setInvalidTitle(true);
+      setInvalidMessage(true);
+    } else if (!title) {
+      setInvalidTitle(true);
+      setInvalidMessage(false);
+    } else if (!message) {
+      setInvalidTitle(false);
+      setInvalidMessage(true);
+    } else {
+      setPostData({
+        title: title,
+        postText: message,
+      });
+    }
   };
 
   return (
     <div className="post-form">
-      <form onSubmit={handleSubmit(submitForm)} className="form">
+      <form onSubmit={submitFormHandler} className="form">
         <div className="form__input">
           <label htmlFor="title">Title:</label>
           <input
             type="text"
-            {...register('title')}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="Title"
             autoComplete="off"
           />
-          <p>{errors.title?.message}</p>
+          <span style={{ color: 'orangered' }}>
+            {invalidTitle && 'Please enter title!'}
+          </span>
         </div>
 
         <div className="form__input">
           <label htmlFor="postText">Message:</label>
           <input
             type="text"
-            {...register('postText')}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="Message"
             autoComplete="off"
           />
-          <p>{errors.postText?.message}</p>
+          <span style={{ color: 'orangered' }}>
+            {invalidMessage && 'Please enter message!'}
+          </span>
         </div>
 
         <button type="submit">Submit</button>

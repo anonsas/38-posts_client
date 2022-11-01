@@ -3,13 +3,18 @@ import './UserProfile.scss';
 import Card from '../../components/Card/Card';
 
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 function UserProfile() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [userProfile, setUserProfile] = useState('');
   const [userPostList, setUserPostList] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) navigate('/login');
+  }, [navigate]);
 
   useEffect(() => {
     axios
