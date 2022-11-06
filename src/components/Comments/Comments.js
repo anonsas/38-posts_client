@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './Comments.scss';
 import CommentForm from './CommentForm/CommentForm';
 import Comment from './Comment/Comment';
-import DeleteCommentModal from './DeleteCommentModal/DeleteCommentModal';
+import { ModalDelete } from '../index';
 import axios from 'axios';
 
 function Comments({ postId }) {
@@ -101,11 +101,11 @@ function Comments({ postId }) {
         ))}
       </ul>
 
-      <DeleteCommentModal
+      <ModalDelete
+        modalId="delete-comment-modal"
         isDeleteModalOpen={isDeleteModalOpen}
-        setIsDeleteModalOpen={setIsDeleteModalOpen}
         closeModalHandler={closeModalHandler}
-        deleteCommentHandler={deleteCommentHandler}
+        deleteItemHandler={deleteCommentHandler}
       />
     </section>
   );

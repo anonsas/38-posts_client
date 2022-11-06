@@ -1,21 +1,22 @@
-import './DeleteCommentModal.scss';
-import { Modal } from '../../index';
+import './ModalDelete.scss';
+import { Modal } from '../index';
 
-function DeleteCommentModal({
+function ModalDelete({
+  modalId,
   isDeleteModalOpen,
   closeModalHandler,
-  deleteCommentHandler,
+  deleteItemHandler,
 }) {
   return (
     <Modal
-      modalId="delete-comment-modal"
+      modalId={modalId}
       isModalOpen={isDeleteModalOpen}
       closeModal={closeModalHandler}
     >
       <main className="delete-modal">
         <h3 className="delete-modal__heading">Are you sure you want to delete this?</h3>
         <div className="delete-modal__actions">
-          <button type="button" onClick={deleteCommentHandler}>
+          <button type="button" onClick={deleteItemHandler}>
             I'm sure
           </button>
           <button type="button" onClick={closeModalHandler}>
@@ -27,4 +28,4 @@ function DeleteCommentModal({
   );
 }
 
-export default DeleteCommentModal;
+export default ModalDelete;

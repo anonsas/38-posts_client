@@ -2,28 +2,20 @@
   margin: 6rem auto;
   width: 30rem;
 
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
   .form {
     padding: 2rem;
-    border: 4px solid #0077cc;
-    border-radius: 1rem;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border: var(--border-1);
+    border-radius: 1em;
+    box-shadow: var(--box-shadow);
+    background-color: var(--background-color-2);
 
     display: flex;
     flex-direction: column;
-    row-gap: 2rem;
+    row-gap: 4rem;
 
     &__input {
       display: flex;
       flex-direction: column;
-
-      & > p {
-        color: orangered;
-      }
     }
   }
 }

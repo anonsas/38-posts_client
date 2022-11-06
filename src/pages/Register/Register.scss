@@ -1,15 +1,8 @@
-.register {
-  width: 100%;
-  max-width: 32rem;
-  margin: 7rem auto;
-  padding: 2rem;
-  border: 1px solid #0077cc;
-  border-radius: 0.5rem;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+@import '../../App.scss';
 
-  display: flex;
-  flex-direction: column;
-  row-gap: 2rem;
+.register {
+  margin: 7rem auto;
+  @include box;
 
   &__heading {
     font-size: 3rem;

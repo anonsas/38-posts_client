@@ -1,6 +1,6 @@
 import './App.scss';
 import { Page } from './constants';
-import { Navbar, RequireAuth } from './components';
+import { Navbar, Footer, RequireAuth } from './components';
 import { AuthProvider } from './contexts/AuthContext';
 
 import { Routes, Route } from 'react-router-dom';
@@ -9,6 +9,7 @@ function App() {
   return (
     <AuthProvider>
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Page.Home />} />
         <Route
@@ -27,6 +28,8 @@ function App() {
         <Route path="postform" element={<Page.PostForm />} />
         <Route path="*" element={<Page.NotFound />} />
       </Routes>
+
+      <Footer />
     </AuthProvider>
   );
 }

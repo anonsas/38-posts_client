@@ -15,6 +15,7 @@ function Card({
   likedPostList,
   likesCount,
   authUser,
+  openDeleteModalHandler,
 }) {
   const navigate = useNavigate();
 
@@ -51,10 +52,14 @@ function Card({
         </div>
       </div>
 
-      {/* <button className="card__delete-btn" onClick={() => deletePostHandler(postId)}>
-            X
-          </button> */}
-      {authUser && <button className="card__delete-btn">X</button>}
+      {authUser && (
+        <button
+          className="card__delete-btn"
+          onClick={() => openDeleteModalHandler(postId)}
+        >
+          X
+        </button>
+      )}
     </article>
   );
 }

@@ -1,0 +1,16 @@
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  padding: 2rem;
+  color: #fff;
+  background-color: var(--background-color-1);
+  display: flex;
+  column-gap: 1rem;
+
+  @media screen and (min-width: 768px) {
+    padding: 2rem 4rem;
+  }
+}

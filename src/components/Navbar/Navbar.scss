@@ -1,6 +1,6 @@
 .header {
   padding: 0 2rem;
-  background-color: #0077cc;
+  background-color: var(--background-color-1);
 
   @media screen and (min-width: 768px) {
     padding: 0 4rem;

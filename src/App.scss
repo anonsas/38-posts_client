@@ -1,52 +1,68 @@
+@mixin box {
+  width: 100%;
+  max-width: 32rem;
+  padding: 2rem;
+  border: var(--border-1);
+  border-radius: 1em;
+  box-shadow: var(--box-shadow);
+  background-color: var(--background-color-2);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+
+  &:hover {
+    box-shadow: var(--box-shadow-hover);
+  }
+}
+
+@mixin row-gap-2 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
 button {
-  background-image: linear-gradient(#42a1ec, #0070c9);
-  border: 1px solid #0077cc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  background-color: initial;
+  background-image: linear-gradient(
+    rgba(179, 132, 201, 0.84),
+    rgba(57, 31, 91, 0.84) 50%
+  );
+  border-radius: 42px;
+  border-width: 0;
+  box-shadow: rgba(57, 31, 91, 0.24) 0 2px 2px, rgba(179, 132, 201, 0.4) 0 8px 12px;
   color: #ffffff;
   cursor: pointer;
-  direction: ltr;
-  display: block;
-  font-family: 'SF Pro Text', 'SF Pro Icons', 'AOS Icons', 'Helvetica Neue', Helvetica,
-    Arial, sans-serif;
-  font-size: 17px;
-  font-weight: 400;
-  letter-spacing: -0.022em;
-  line-height: 1.47059;
-  min-width: 30px;
-  overflow: visible;
-  padding: 4px 15px;
+
+  font-family: Quicksand, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  justify-content: center;
+  letter-spacing: 0.04em;
+  line-height: 1.2rem;
+  margin: 0;
+  padding: 1.6rem 3.2rem;
   text-align: center;
-  vertical-align: baseline;
+  text-decoration: none;
+  text-shadow: rgba(255, 255, 255, 0.4) 0 0 4px, rgba(255, 255, 255, 0.2) 0 0 12px,
+    rgba(57, 31, 91, 0.6) 1px 1px 4px, rgba(57, 31, 91, 0.32) 4px 4px 16px;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  white-space: nowrap;
+  vertical-align: baseline;
 }
-button:disabled {
-  cursor: default;
-  opacity: 0.3;
-}
+
 button:hover {
-  background-image: linear-gradient(#51a9ee, #147bcd);
-  border-color: #1482d0;
-  text-decoration: none;
-}
-button:active {
-  background-image: linear-gradient(#3d94d9, #0067b9);
-  border-color: #006dbc;
-  outline: none;
-}
-button:focus {
-  box-shadow: rgba(131, 192, 253, 0.5) 0 0 0 3px;
-  outline: none;
+  background-image: linear-gradient(#b384c9, #391f5b 50%);
 }
 
 input {
-  padding: 0.6rem;
+  padding: 0.6em 0.8em;
 
   border: 1px solid black;
-  border-radius: 4px;
+  border-radius: 1em;
+  outline: none;
 }
 
 a,

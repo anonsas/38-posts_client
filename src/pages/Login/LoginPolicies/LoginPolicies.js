@@ -17,7 +17,7 @@ function LoginPolicies({ link }) {
         className="login-policies__register-btn"
         onClick={() => navigate(link)}
       >
-        Create your FinalExam Account
+        Create your Account
       </button>
     </div>
   );

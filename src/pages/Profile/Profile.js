@@ -14,10 +14,17 @@ function Profile() {
   };
 
   return (
-    <>
-      <h2>Welcome - {auth.user?.username}</h2>
-      <button onClick={handleLogout}>Logout</button>
-    </>
+    <main className="profile">
+      <div className="profile__user-container">
+        <h1 className="profile__user">Welcome - {auth.user?.username}</h1>
+        <button onClick={handleLogout} className="profile__logout-btn">
+          Logout
+        </button>
+      </div>
+      <div className="profile__posts">
+        <h3>Here are your recent posts:</h3>
+      </div>
+    </main>
   );
 }
 

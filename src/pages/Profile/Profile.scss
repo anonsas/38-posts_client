@@ -1,0 +1,25 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4rem;
+  padding: 4rem;
+
+  &__user-container {
+    width: 100%;
+    max-width: 60rem;
+    padding: 2rem;
+    color: var(--gold-color);
+    background-color: var(--background-color-1);
+
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2rem;
+    align-items: center;
+  }
+
+  &__posts {
+    color: var(--gold-color);
+    background-color: var(--background-color-2);
+  }
+}
