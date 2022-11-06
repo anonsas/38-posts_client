@@ -1,7 +1,7 @@
 import { useState, useLayoutEffect, createContext, useContext } from 'react';
 import axios from 'axios';
 
-export const AuthContext = createContext();
+const AuthContext = createContext();
 
 // To wrap App.js Component.
 export const AuthProvider = ({ children }) => {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// To use it in components.
+// To use it in components. Like (customHook)
 export const useAuth = () => {
   return useContext(AuthContext);
 };
