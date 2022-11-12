@@ -1,59 +1,62 @@
 import React, { useState, useEffect } from 'react';
 import './PostForm.scss';
+import { createNewPost } from '../../utils/posts.utils';
 
-import axios from 'axios';
+// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function PostForm() {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
-  const [message, setMessage] = useState('');
+  const [postText, setPostText] = useState('');
   const [invalidTitle, setInvalidTitle] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState(false);
 
-  const [postData, setPostData] = useState(null);
+  // const [postData, setPostData] = useState(null);
 
   useEffect(() => {
     if (!localStorage.getItem('accessToken')) navigate('/login');
   }, [navigate]);
 
-  useEffect(() => {
-    if (!postData) return;
+  // useEffect(() => {
+  //   if (!postData) return;
 
-    axios
-      .post('http://localhost:4000/posts', postData, {
-        headers: {
-          accessToken: localStorage.getItem('accessToken'),
-        },
-      })
-      .then((response) => {
-        navigate('/');
-        setTitle('');
-        setMessage('');
-        setInvalidTitle(false);
-        setInvalidMessage(false);
-      })
-      .catch((error) => alert(error.message));
-  }, [postData, navigate]);
+  //   axios
+  //     .post('http://localhost:4000/posts', postData, {
+  //       headers: {
+  //         accessToken: localStorage.getItem('accessToken'),
+  //       },
+  //     })
+  //     .then((response) => {
+  //       navigate('/');
+  //       setTitle('');
+  //       setPostText('');
+  //       setInvalidTitle(false);
+  //       setInvalidMessage(false);
+  //     })
+  //     .catch((error) => alert(error.message));
+  // }, [postData, navigate]);
 
-  const submitFormHandler = (e) => {
+  const submitFormHandler = async (e) => {
     e.preventDefault();
 
-    if (!title && !message) {
+    if (!title && !postText) {
       setInvalidTitle(true);
       setInvalidMessage(true);
     } else if (!title) {
       setInvalidTitle(true);
       setInvalidMessage(false);
-    } else if (!message) {
+    } else if (!postText) {
       setInvalidTitle(false);
       setInvalidMessage(true);
     } else {
-      setPostData({
-        title: title,
-        postText: message,
-      });
+      const response = await createNewPost({ title, postText });
+      console.log(response);
+      // setPostData({
+      //   title: title,
+      //   postText: message,
+      // });
     }
   };
 
@@ -78,8 +81,8 @@ function PostForm() {
           <label htmlFor="postText">Message:</label>
           <input
             type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
+            value={postText}
+            onChange={(e) => setPostText(e.target.value)}
             placeholder="Message"
             autoComplete="off"
           />

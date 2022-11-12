@@ -1,5 +1,5 @@
 import './User.scss';
-import DeleteUserModal from './DeleteUserModal/DeleteUserModal';
+import ModalDelete from '../ModalDelete/ModalDelete';
 
 function User({
   user,
@@ -14,12 +14,14 @@ function User({
       <span className="user__username">Username: {user.username}</span>
       <span className="user__date">Created Account: {user.createdAt.slice(0, 10)}</span>
       <div className="user__actions">
-        <button onClick={() => openDeleteModalHandler(user)}>Delete User</button>
+        <button onClick={() => openDeleteModalHandler(user.id)}>Delete User</button>
       </div>
-      <DeleteUserModal
+
+      <ModalDelete
+        modalId="delete-user-modal"
         isDeleteModalOpen={isDeleteModalOpen}
         closeModalHandler={closeModalHandler}
-        deleteUserHandler={deleteUserHandler}
+        deleteItemHandler={deleteUserHandler}
       />
     </li>
   );

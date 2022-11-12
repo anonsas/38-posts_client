@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-const RequireAuth = ({ children }) => {
+const RequireAuth = ({ Component, children }) => {
   const location = useLocation();
   const auth = useAuth();
   if (auth.user.role !== 'admin') {

@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import './Admin.scss';
 import User from '../../components/User/User';
 import { useAuth } from '../../contexts/AuthContext';
-
-import axios from 'axios';
+import { getAllUsers, deleteUser } from '../../utils/admin.utils';
 import { useNavigate } from 'react-router-dom';
 
 function Admin() {
@@ -11,46 +10,33 @@ function Admin() {
   const navigate = useNavigate();
 
   const [usersList, setUsersList] = useState(null);
-  const [deleteUserData, setDeleteUserData] = useState(null);
-  const [deleteUserModalData, setDeleteUserModalData] = useState(null);
+  const [deleteUserId, setDeleteUserId] = useState(null);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem('accessToken')) navigate('/login');
-    axios
-      .get('http://localhost:4000/admin')
-      .then((response) => {
-        setUsersList(response.data);
-      })
-      .catch((error) => alert(error.message));
-  }, [navigate, auth.user.role]);
+    (async () => {
+      const response = await getAllUsers();
+      setUsersList(response);
+    })();
+  }, [navigate]);
 
-  useEffect(() => {
-    if (!deleteUserData) return;
-    axios
-      .delete(`http://localhost:4000/admin/${deleteUserData.id}`)
-      .then((response) => {
-        setDeleteUserData(null);
-        setUsersList((prevState) =>
-          [...prevState].filter((user) => user.id !== deleteUserData.id)
-        );
-      })
-      .catch((error) => alert(error.message));
-  }, [deleteUserData]);
-
-  const openDeleteModalHandler = (user) => {
+  const openDeleteModalHandler = (userId) => {
+    setDeleteUserId(userId);
     setIsDeleteModalOpen(true);
-    setDeleteUserModalData(user);
   };
 
   const closeModalHandler = () => {
-    setDeleteUserModalData(null);
+    setDeleteUserId(null);
     setIsDeleteModalOpen(false);
   };
 
-  const deleteUserHandler = () => {
-    setDeleteUserData(deleteUserModalData);
+  const deleteUserHandler = async () => {
+    await deleteUser(deleteUserId);
+    setDeleteUserId(null);
     setIsDeleteModalOpen(false);
+    setUsersList((prevState) =>
+      [...prevState].filter((user) => user.id !== deleteUserId)
+    );
   };
 
   return (
