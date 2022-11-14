@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Register.scss';
-import Form from '../../components/Form/Form';
-
-import axios from 'axios';
+import { Form } from '../../components';
+import { register } from '../../utils/register.utils';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
@@ -10,25 +9,15 @@ function Register() {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [registerData, setRegisterData] = useState(null);
 
-  useEffect(() => {
-    if (!registerData) return;
-
-    axios
-      .post('http://localhost:4000/auth', registerData)
-      .then((response) => {
-        navigate('/login', { replace: true });
-        setUsername('');
-        setPassword('');
-      })
-      .catch((error) => alert(error.message));
-  }, [navigate, registerData]);
-
-  const submitRegisterHandler = (e) => {
+  const submitRegisterHandler = async (e) => {
     e.preventDefault();
     if (!username || !password) return alert('Please fill the form!');
-    setRegisterData({ username, password });
+
+    await register(username, password);
+    setUsername('');
+    setPassword('');
+    navigate('/login', { replace: true });
   };
 
   return (

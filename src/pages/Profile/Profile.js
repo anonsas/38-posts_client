@@ -1,15 +1,15 @@
 import './Profile.scss';
 import { useAuth } from '../../contexts/AuthContext';
-
 import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const auth = useAuth();
   const navigate = useNavigate();
+  console.log(auth);
 
-  const handleLogout = () => {
+  const logoutHandler = () => {
     localStorage.removeItem('accessToken');
-    auth.logout('');
+    auth.logout();
     navigate('/login');
   };
 
@@ -17,7 +17,7 @@ function Profile() {
     <main className="profile">
       <div className="profile__user-container">
         <h1 className="profile__user">Welcome - {auth.user?.username}</h1>
-        <button onClick={handleLogout} className="profile__logout-btn">
+        <button onClick={logoutHandler} className="profile__logout-btn">
           Logout
         </button>
       </div>

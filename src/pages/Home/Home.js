@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Home.scss';
-import Card from '../../components/Card/Card';
-
-import axios from 'axios';
+import { Card } from '../../components';
+import { getAllPosts, likePostHandler } from '../../utils/posts.utils';
 import { useNavigate } from 'react-router-dom';
 
 function Home() {
@@ -12,53 +11,43 @@ function Home() {
   const [likedPostList, setLikedPostList] = useState([]);
 
   useEffect(() => {
-    if (!localStorage.getItem('accessToken')) {
-      navigate('/login');
-    } else {
-      axios
-        .get('http://localhost:4000/posts', {
-          headers: { accessToken: localStorage.getItem('accessToken') },
-        })
-        .then((response) => {
-          setPostList(response.data.postList);
-          setLikedPostList(response.data.likedPostList.map((like) => like.PostId));
-        });
-    }
+    if (!localStorage.getItem('accessToken')) navigate('/login');
   }, [navigate]);
 
-  const likeHandler = (postId) => {
-    axios
-      .post(
-        `http://localhost:4000/likes`,
-        { PostId: postId },
-        {
-          headers: { accessToken: localStorage.getItem('accessToken') },
-        }
-      )
-      .then((response) => {
-        setPostList((prevState) =>
-          [...prevState].map((post) => {
-            if (post.id === postId) {
-              if (response.data.liked) {
-                return { ...post, Likes: [...post.Likes, 1] };
-              } else {
-                const likesArray = post.Likes;
-                likesArray.pop();
-                return { ...post, Likes: likesArray };
-              }
-            } else {
-              return post;
-            }
-          })
-        );
-        if (likedPostList.includes(postId)) {
-          setLikedPostList((prevState) =>
-            [...prevState].filter((likedPost) => likedPost !== postId)
-          );
+  useEffect(() => {
+    (async () => {
+      const posts = await getAllPosts();
+      setPostList(posts.postList);
+      setLikedPostList(posts.likedPostList.map((like) => like.PostId));
+    })();
+  }, []);
+
+  const likeHandler = async (postId) => {
+    const response = await likePostHandler(postId);
+
+    setPostList((prevState) =>
+      [...prevState].map((post) => {
+        if (post.id === postId) {
+          if (response.liked) {
+            return { ...post, Likes: [...post.Likes, 1] };
+          } else {
+            const likesArray = post.Likes;
+            likesArray.pop();
+            return { ...post, Likes: likesArray };
+          }
         } else {
-          setLikedPostList((prevState) => [...prevState, postId]);
+          return post;
         }
-      });
+      })
+    );
+
+    if (likedPostList.includes(postId)) {
+      setLikedPostList((prevState) =>
+        [...prevState].filter((likedPost) => likedPost !== postId)
+      );
+    } else {
+      setLikedPostList((prevState) => [...prevState, postId]);
+    }
   };
 
   return (

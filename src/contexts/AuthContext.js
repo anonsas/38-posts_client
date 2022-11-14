@@ -1,35 +1,28 @@
 import { useState, useLayoutEffect, createContext, useContext } from 'react';
-import axios from 'axios';
+import { userAuthentication } from '../utils/user.utils';
 
 const AuthContext = createContext();
 
 // To wrap App.js Component.
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
-
-  useLayoutEffect(() => {
-    axios
-      .get('http://localhost:4000/auth/auth', {
-        headers: {
-          accessToken: localStorage.getItem('accessToken'),
-        },
-      })
-      .then((response) => {
-        if (response.data.error) {
-          setUser({});
-        } else {
-          setUser({
-            id: response.data.id,
-            username: response.data.username,
-            role: response.data.role,
-            status: true,
-          });
-        }
-      });
-  }, []);
-
   const login = (user) => setUser(user);
   const logout = () => setUser({});
+
+  useLayoutEffect(() => {
+    (async () => {
+      const response = await userAuthentication();
+      if (response.error) setUser({});
+      else {
+        setUser({
+          id: response.id,
+          username: response.username,
+          role: response.role,
+          status: true,
+        });
+      }
+    })();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>

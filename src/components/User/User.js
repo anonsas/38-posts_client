@@ -1,5 +1,5 @@
 import './User.scss';
-import ModalDelete from '../ModalDelete/ModalDelete';
+import { ModalDelete } from '../index';
 
 function User({
   user,

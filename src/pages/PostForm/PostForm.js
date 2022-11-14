@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './PostForm.scss';
 import { createNewPost } from '../../utils/posts.utils';
-
-// import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function PostForm() {
@@ -13,30 +11,9 @@ function PostForm() {
   const [invalidTitle, setInvalidTitle] = useState(false);
   const [invalidMessage, setInvalidMessage] = useState(false);
 
-  // const [postData, setPostData] = useState(null);
-
   useEffect(() => {
     if (!localStorage.getItem('accessToken')) navigate('/login');
   }, [navigate]);
-
-  // useEffect(() => {
-  //   if (!postData) return;
-
-  //   axios
-  //     .post('http://localhost:4000/posts', postData, {
-  //       headers: {
-  //         accessToken: localStorage.getItem('accessToken'),
-  //       },
-  //     })
-  //     .then((response) => {
-  //       navigate('/');
-  //       setTitle('');
-  //       setPostText('');
-  //       setInvalidTitle(false);
-  //       setInvalidMessage(false);
-  //     })
-  //     .catch((error) => alert(error.message));
-  // }, [postData, navigate]);
 
   const submitFormHandler = async (e) => {
     e.preventDefault();
@@ -51,12 +28,12 @@ function PostForm() {
       setInvalidTitle(false);
       setInvalidMessage(true);
     } else {
-      const response = await createNewPost({ title, postText });
-      console.log(response);
-      // setPostData({
-      //   title: title,
-      //   postText: message,
-      // });
+      await createNewPost({ title, postText });
+      navigate('/');
+      setTitle('');
+      setPostText('');
+      setInvalidTitle(false);
+      setInvalidMessage(false);
     }
   };
 

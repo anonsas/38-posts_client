@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Login.scss';
 import { useAuth } from '../../contexts/AuthContext';
 import LoginPolicies from './LoginPolicies/LoginPolicies';
-import Form from '../../components/Form/Form';
-
-import axios from 'axios';
+import { Form } from '../../components';
+import { login } from '../../utils/login.utils';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -14,35 +13,21 @@ function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const [loginData, setLoginData] = useState(null);
-
-  useEffect(() => {
-    if (!loginData) return;
-
-    axios
-      .post('http://localhost:4000/auth/login', loginData)
-      .then((response) => {
-        if (response.data.error) alert(response.data.error);
-        else {
-          localStorage.setItem('accessToken', response.data.accessToken);
-          auth.login({
-            id: response.data.id,
-            username: response.data.username,
-            role: response.data.role,
-            status: true,
-          });
-          navigate('/', { replace: true });
-          setUsername('');
-          setPassword('');
-        }
-      })
-      .catch((error) => alert(error.message));
-  }, [auth, navigate, loginData]);
-
-  const submitLoginHandler = (e) => {
+  const submitLoginHandler = async (e) => {
     e.preventDefault();
     if (!username || !password) return alert('Please fill the form!');
-    setLoginData({ username, password });
+
+    const response = await login(username, password);
+    localStorage.setItem('accessToken', response.accessToken);
+    auth.login({
+      id: response.id,
+      username: response.username,
+      role: response.role,
+      status: true,
+    });
+    navigate('/', { replace: true });
+    setUsername('');
+    setPassword('');
   };
 
   return (
